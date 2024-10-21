@@ -2,6 +2,9 @@ package model;
 
 import java.io.Serializable;
 
+/*
+ * UserテーブルのJavaBeansクラス
+ */
 public class User implements Serializable{
 
 	private String name;

@@ -22,9 +22,7 @@ public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-//		ServletContext application = getServletContext();
-//		List<Mutter> mutterList = (List<Mutter>) application.getAttribute("mutterList");
-		
+
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
 		List<Mutter> mutterList = getMutterListLogic.execute();
 		Collections.reverse(mutterList);
