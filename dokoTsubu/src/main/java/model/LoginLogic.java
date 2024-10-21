@@ -1,37 +1,31 @@
 package model;
 
-import java.util.Map;
-
+/*
+ * ログイン処理クラス
+ */
 public class LoginLogic {
 
-	public boolean execute(User user) {
-		if (user.getPass().equals("1234")) {
-			return true;
-		}
-		return false;
+	/*
+	 * ユーザー名とパスワードのチェック
+	 */
+	public boolean checkLogin(User user) {
+		UsersDAO dao = new UsersDAO(); 
+		return dao.login(user.getName(),user.getPass());
 	}
 	
-	public boolean checkLogin(Map<String,String> userMap,String name,String pass) {
-		if (userMap.get(name).equals(pass)) {
-			return true;
-		}else {
-			return false;
-		}
+	/*
+	 * ユーザー登録
+	 */
+	public boolean saveUser(User user) {
+		UsersDAO dao = new UsersDAO(); 
+		return dao.saveUser(user);
 	}
 	
-	public String saveUser(Map<String, String> user,String name,String pass) {
-		user.put(name, pass);
-		String save = "登録完了しました";
-		return save;
-	}
-	
-	
-	public String checkUser(Map<String, String> user,String name,String pass) {
-		String error = "";
-		if(user.containsKey(name)) {
-			return error = "そのユーザーは既に登録されています";
-		}else {
-			return saveUser(user,name,pass);
-		}
+	/*
+	 * ユーザー名検索
+	 */
+	public boolean checkUser(User user) {
+		UsersDAO dao = new UsersDAO(); 
+		return dao.nameCheck(user);
 	}
 }

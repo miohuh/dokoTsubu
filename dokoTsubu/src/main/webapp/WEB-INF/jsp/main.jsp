@@ -15,24 +15,22 @@ String error = (String) request.getAttribute("error");
 <title>どこつぶ</title>
 </head>
 <body>
-
 	<h1>どこつぶメイン</h1>
-	<p>
-		<%=user.getName()%>さん、ログイン中
-	</p>
+	<p><%=user.getName()%>さん、ログイン中</p>
 	<a href="Logout">ログアウト</a>
 	<p><a href="Main">更新</a></p>
 
 	<form action="Main" method="post">
-	<input type="text" name="text">
-	<input type="submit" value="つぶやく">
+		<input type="text" name="text">
+		<input type="submit" value="つぶやく">
 	</form>
 	<% if (error != null) { %>
-	<p><%=error.toString() %></p>
+		<p><%=error.toString() %></p>
 	<% } %>
-	
-	<% for (Mutter m : mutterList) { %>
-		<p><%=m.getUserName() %> ： <%=m.getText() %></p>
+	<% if (mutterList != null) { %>
+		<% for (Mutter m : mutterList) { %>
+			<p><%=m.getUserName() %> ： <%=m.getText() %></p>
+		<% } %>
 	<% } %>
 </body>
 </html>

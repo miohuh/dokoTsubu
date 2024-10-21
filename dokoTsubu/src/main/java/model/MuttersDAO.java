@@ -6,7 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+ * muttersテーブル(つぶやき)接続DAOクラス
+ */
 public class MuttersDAO {
 
 	private final String URL = "jdbc:postgresql://localhost:5432/dokoTsubu";
@@ -22,7 +24,10 @@ public class MuttersDAO {
 			e.printStackTrace();
 		}
 	}
-		
+	
+	/*
+	 * つぶやき登録
+	 */
 	public boolean create(Mutter m) {
 		String sql = "insert into mutters(name,text) values (?,?);";
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
@@ -44,7 +49,10 @@ public class MuttersDAO {
 		return true;
 	}
 
-	public List<Mutter> findAll() {
+	/*
+	 * つぶやきリストの作成
+	 */
+	public List<Mutter> findAll(User user) {
 		String sql = "select * from mutters;";
 		
 		List<Mutter> allMutterList = null;
@@ -52,10 +60,7 @@ public class MuttersDAO {
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
 	 			PreparedStatement st = con.prepareStatement(sql);) {
 
-				/* 3) SQL文の実行 */
 				ResultSet rs = st.executeQuery();
-
-				/* 4) 結果をリストに移し替える */
 				allMutterList = makeMuttersList(rs);
 
 			} catch (Exception e) {
@@ -65,6 +70,9 @@ public class MuttersDAO {
 		return allMutterList;
 	}
 	
+	/*
+	 * SQLの検索結果からListの作成
+	 */
 	public List<Mutter> makeMuttersList(ResultSet rs) throws Exception{
 		List<Mutter> allMutterList = new ArrayList<>();
 		

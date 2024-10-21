@@ -16,57 +16,78 @@ import model.GetMutterListLogic;
 import model.Mutter;
 import model.PostMutterLogic;
 import model.User;
-
+/*
+ * メインサーブレット
+ */
 @WebServlet("/Main")
 public class Main extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
+	/*
+	 * ログイン後の初期メイン画面
+	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException {
-
-		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
-		List<Mutter> mutterList = getMutterListLogic.execute();
-		Collections.reverse(mutterList);
-		request.setAttribute("mutterList", mutterList);
-
 		HttpSession session = request.getSession();
+		//ログインしたユーザー情報の取得
 		User user = (User)session.getAttribute("user");
 		
-		if(user == null) {
-			response.sendRedirect("index.jsp");
-		}else {
+		//つぶやき処理クラスのインスタンス
+		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
+		
+		if (user != null) {
+			//つぶやきリストの取得
+			List<Mutter> mutterList = getMutterListLogic.execute(user);
+			// リストの並び変え
+			Collections.reverse(mutterList);
+			//リクエストスコープへ保存
+			request.setAttribute("mutterList", mutterList);
+			//フォワード
 			RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
 			dispatcher.forward(request, response);
+		} else {
+			//リダイレクト
+			response.sendRedirect("index.jsp");
 		}
-	}
 
+	}
+	/*
+	 * つぶやき処理
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
+		//ユーザー情報取得
+		HttpSession session = request.getSession();
+		User user = (User)session.getAttribute("user");
+		//パラメータの取得
 		String text = request.getParameter("text");
 		
+		String error = "";
+		
 		if(text != null && text.length() != 0) {
-//			ServletContext application = getServletContext();
-//			List<Mutter> mutterList = (List<Mutter>) application.getAttribute("mutterList");
-			
-			HttpSession session = request.getSession();
-			User user = (User)session.getAttribute("user");
-			
 			Mutter mutter = new Mutter();
 			mutter.setText(text);
 			mutter.setUserName(user.getName());
-			
+			//処理クラスインスタンス作成
 			PostMutterLogic postMutterLogic = new PostMutterLogic();
-			postMutterLogic.execute(mutter);
-		
-//			application.setAttribute("mutterList", mutterList);
+			//登録処理
+			boolean result = postMutterLogic.execute(mutter);
+
+			if (!result) {
+				error += "エラー発生";
+			}
 		} else {
-			String error = "つぶやきが入力されていません";
-			request.setAttribute("error",error);
+			 error += "つぶやきが入力されていません";
 		}
-		
+		//つぶやきリスト取得処理クラスインスタンス
 		GetMutterListLogic getMutterListLogic = new GetMutterListLogic();
-		List<Mutter> mutterList = getMutterListLogic.execute();
+		//つぶやきリストの取得
+		List<Mutter> mutterList = getMutterListLogic.execute(user);
+		// リストの並び変え
 		Collections.reverse(mutterList);
+		//リクエストスコープへ保存
 		request.setAttribute("mutterList", mutterList);
+		//エラーメッセージ
+		request.setAttribute("error",error);
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher("WEB-INF/jsp/main.jsp");
 		dispatcher.forward(request, response);

@@ -1,7 +1,9 @@
 package model;
 
 import java.io.Serializable;
-
+/*
+ * つぶやきテーブルのJavaBeansクラス
+ */
 public class Mutter implements Serializable{
 
 	private int id;
