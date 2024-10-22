@@ -11,7 +11,7 @@ import java.util.List;
  */
 public class MuttersDAO {
 
-	private final String URL = "jdbc:postgresql://localhost:5432/dokoTsubu";
+	private final String URL = "jdbc:postgresql://localhost:5432/dokotsubu";
 	private final String USER = "postgres";
 	private final String PASSWORD = "test";
 

@@ -48,6 +48,8 @@ public class Submit extends HttpServlet {
 				boolean saveSubmit = logic.saveUser(user);
 				if(!saveSubmit) {
 					submit = "登録できませんでした";
+				}else {
+					submit += "登録完了";
 				}
 			}else {
 				submit = "既に登録済みのユーザーです";

@@ -9,7 +9,7 @@ import java.sql.ResultSet;
  */
 public class UsersDAO {
 
-	private final String URL = "jdbc:postgresql://localhost:5432/dokoTsubu";
+	private final String URL = "jdbc:postgresql://localhost:5432/dokotsubu";
 	private final String USER = "postgres";
 	private final String PASSWORD = "test";
 
@@ -53,7 +53,7 @@ public class UsersDAO {
 	 * 同じIDが登録されているか検索
 	 */
 	public boolean nameCheck(User user) {
-		String sql = "SELECT name FROM users WHERE id = ?;";
+		String sql = "SELECT * FROM users WHERE id = ?;";
 
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement st = con.prepareStatement(sql);) {
@@ -75,7 +75,7 @@ public class UsersDAO {
 	}
 	
 	public boolean saveUser(User user) {
-		String sql = "INSERT INTO users(user_name,pass) VALUES (?,?);";
+		String sql = "INSERT INTO users(id,pass) VALUES (?,?);";
 		
 		try (Connection con = DriverManager.getConnection(URL, USER, PASSWORD);
 				PreparedStatement st = con.prepareStatement(sql);) {

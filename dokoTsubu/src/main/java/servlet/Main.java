@@ -38,7 +38,9 @@ public class Main extends HttpServlet {
 			//つぶやきリストの取得
 			List<Mutter> mutterList = getMutterListLogic.execute(user);
 			// リストの並び変え
-			Collections.reverse(mutterList);
+			if (mutterList != null) {
+				Collections.reverse(mutterList);
+			}
 			//リクエストスコープへ保存
 			request.setAttribute("mutterList", mutterList);
 			//フォワード
@@ -83,7 +85,9 @@ public class Main extends HttpServlet {
 		//つぶやきリストの取得
 		List<Mutter> mutterList = getMutterListLogic.execute(user);
 		// リストの並び変え
-		Collections.reverse(mutterList);
+		if (mutterList != null) {
+			Collections.reverse(mutterList);
+		}
 		//リクエストスコープへ保存
 		request.setAttribute("mutterList", mutterList);
 		//エラーメッセージ
