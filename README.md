@@ -16,7 +16,7 @@ PostgreSQLデータベースと連携させたチャット管理Webアプリケ�
 
 |   機能名      | スクリーンショット                             | 説明                   |
 |-------------|----------------------------------------------|------------------------|
-|  ログイン画面  | ![rogin](https://github.com/user-attachments/assets/ebbf0e7e-543e-444d-b2c5-d5dcd2f9b309) | 登録したユーザー情報でログインできます |
+|  ログイン画面  | ![rogin](https://github.com/user-attachments/assets/ebbf0e7e-543e-444d-b2c5-d5dcd2f9b309) | 登録したユーザー情報でログインできます <br> <関連コード> <br>[Login.java](dokoTsubu/src/main/java/servlet/Login.java) / [LoginLogic.java](dokoTsubu/src/main/java/model/LoginLogic.java) / [UsersDAO.java](dokoTsubu/src/main/java/model/UsersDAO.java) / [User.java](dokoTsubu/src/main/java/model/User.java)|
 |  ユーザー登録画面  | ![登録](https://github.com/user-attachments/assets/e6f9ad04-41ee-4c7f-b7c8-1ad6b3c9aa54) | IDとPASSWARDでユーザー登録を行います |
 |  ログイン完了画面  | ![ログイン完了](https://github.com/user-attachments/assets/c3f84f6a-7a00-4ef1-ab1c-2c422e7698be)  | ユーザー情報がDBに登録されていたら完了します |
 | 　メイン画面  | ![つぶやき画面](https://github.com/user-attachments/assets/b75ed866-d7db-4073-9cdd-ab7130a59d23)　| ログインしているユーザーのつぶやきが表示され、自身のつぶやきができます |
